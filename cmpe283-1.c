@@ -12,24 +12,8 @@ password/*
  * See SDM volume 4, section 2.1
  */
 #define IA32_VMX_PINBASED_CTLS 0x481
-
 #define IA32_VMX_BASIC 0x480
 
-#define IA32_VMX_PROCBASED_CTLS 0x482
-
-#define IA32_VMX_PROCBASED_CTLS2 0x48B
-
-#define IA32_VMX_EXIT_CTLS 0x483
-
-#define IA32_VMX_ENTRY_CTLS 0x484
-
-#define IA32_VMX_TRUE_PINBASED_CTLS 0x48D
-
-#define IA32_VMX_TRUE_PROCBASED_CTLS 0x48E
-
-#define IA32_VMX_TRUE_EXIT_CTLS 0x48F
-
-#define IA32_TRUE_ENTRY_CTLS 0x490
 
 /*
  * struct caapability_info
@@ -109,10 +93,15 @@ detect_vmx_features(void)
 
 	/* Pinbased controls */
 	rdmsr(IA32_VMX_PINBASED_CTLS, lo, hi);
-    rdmsr(IA32_VMX_BASIC, lo, hi);
 	pr_info("Pinbased Controls MSR: 0x%llx\n",
-		(uint64_t)(lo | (uint64_t)hi << 55));
-	report_capability(basic, 5, lo, hi);
+		(uint64_t)(lo | (uint64_t)hi << 32));
+	report_capability(pinbased, 5, lo, hi);
+
+
+    rdmsr(IA32_VMX_BASIC, lo, hi);
+    pr_info("Pinbased Controls MSR: 0x%llx\n",
+        (uint64_t)(lo | (uint64_t)hi << 55));
+    report_capability(basic, 5, lo, hi);
 }
 
 /*
