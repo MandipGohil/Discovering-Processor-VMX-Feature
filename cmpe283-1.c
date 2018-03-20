@@ -288,13 +288,13 @@ detect_vmx_features(void)
     rdmsr(IA32_VMX_ENTRY_CTLS, lo, hi);
     pr_info("\n----->Entry controls MSR: 0x%llx\n",
         (uint64_t)(lo | (uint64_t)hi << 32));
-    report_capability(entrycontrol, 11, lo, hi);
+    report_capability(entrycontrol, 9, lo, hi);
 
     /* True Control controls */
     rdmsr(IA32_TRUE_ENTRY_CTLS, lo, hi);
     pr_info("\n----->True Entry controls MSR: 0x%llx\n",
         (uint64_t)(lo | (uint64_t)hi << 32));
-    report_capability(trueentrycontrol, 11, lo, hi);
+    report_capability(trueentrycontrol, 9, lo, hi);
 }
 
 /*
